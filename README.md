@@ -91,6 +91,9 @@ pod  'ZSMenuView'
 
 ```
 
+![example](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example2.gif)
+![example](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example3.gif)
+
 #### 参与贡献
 
 1. Fork 本项目
