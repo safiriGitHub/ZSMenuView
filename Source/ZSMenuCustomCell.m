@@ -10,14 +10,17 @@
 
 @interface ZSMenuCustomCell ()
 
-@property (nonatomic ,strong) UIColor *selectionColor;
+@property (nonatomic ,strong) UIView *selectedForegroundView;
 
 @end
 
 @implementation ZSMenuCustomCell
 
 - (void)layoutSubviews {
-    self.selectedForegroundView.frame = self.contentView.bounds;
+    [super layoutSubviews];
+    if (self.selectionColor) {
+        self.selectedForegroundView.frame = self.contentView.bounds;
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted {

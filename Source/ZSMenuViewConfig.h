@@ -9,21 +9,26 @@
 #ifndef ZSMenuViewConfig_h
 #define ZSMenuViewConfig_h
 
-@class ZSMenuView,ZSMenuViewCell;
+@class ZSMenuView,ZSMenuCustomCell;
 
 typedef NS_ENUM(NSUInteger, ZSMenuViewFlowDirection) {
     FlowDirectionVertical,
     FlowDirectionHorizontal
 };
 
+typedef NS_ENUM(NSUInteger, ZSMenuViewSeparateStyle) {
+    SeparateStyleNone, //Custom
+    SeparateStyleNormal
+};
+
 @protocol ZSMenuViewDataSource <NSObject>
 
 @required;
 /// 通过数据源代理获取项目数量
-- (NSInteger)numberOfItemsInMenuView:(ZSMenuView *)menuView;
+- (NSInteger)menuView:(ZSMenuView *)menuView numberOfItemsInSection:(NSInteger)section;
 
 /// 根据指定index传入相应的自定义cell，即自定制菜单View
-- (UICollectionViewCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (ZSMenuCustomCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

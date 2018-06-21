@@ -8,6 +8,7 @@
 
 #import "ZSMenuView.h"
 #import "ZSMenuCustomFlowLayout.h"
+#import "ZSMenuCustomCell.h"
 
 @interface ZSMenuView ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -39,13 +40,12 @@
 }
 - (void)commonInit {
     //data
-//    _horizontalSpacing = 0.5;
-//    _verticalSpacing = 0.5;
     _flowDirection = FlowDirectionVertical;
     _alwaysBounceHorizontal = NO;
     _alwaysBounceVertical = NO;
     _showsHorizontalScrollIndicator = NO;
     _showsVerticalScrollIndicator = NO;
+    _separateLineColor = [UIColor whiteColor];
     
     //view
     [self addSubview:self.contentView];
@@ -67,16 +67,10 @@
 - (UICollectionViewCell *)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier atIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     return cell;
-//    cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//    cell.layer.borderWidth = 4;
-//    if ([cell isKindOfClass:ZSPagerViewCell.class]) {
-//        return (ZSPagerViewCell *)cell;
-//    }else {
-//        //fatalError("Cell class must be subclass of FSPagerViewCell");
-//        return nil;
-//    }
 }
-
+- (void)reloadData {
+    [self.collectionView reloadData];
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -86,8 +80,8 @@
     if (self.dataSource == nil) {
         return 0;
     }
-    if ([self.dataSource respondsToSelector:@selector(numberOfItemsInMenuView:)]) {
-        self.numberOfMenus = [self.dataSource numberOfItemsInMenuView:self];
+    if ([self.dataSource respondsToSelector:@selector(menuView:numberOfItemsInSection:)]) {
+        self.numberOfMenus = [self.dataSource menuView:self numberOfItemsInSection:section];
     }
     if (self.numberOfMenus <= 0) {
         return 0;
@@ -96,11 +90,22 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [self.dataSource menuView:self cellForItemAtIndexPath:indexPath];
-//    cell.layer.borderWidth = self.separateLineWidth;
-//    if (self.separateLineColor) {
-//        cell.layer.borderColor = self.separateLineColor.CGColor;
-//    }
+    ZSMenuCustomCell *cell = [self.dataSource menuView:self cellForItemAtIndexPath:indexPath];
+    if (self.separateStyle == SeparateStyleNormal && self.customFlowLayout.itemsPerline > 0) {
+        //normal style
+        [cell hideAllBorders];
+        if (indexPath.item/self.customFlowLayout.itemsPerline < [self.customFlowLayout linesForSection:indexPath.section] - 1) {
+            [cell addBorderWithBorderColor:self.separateLineColor borderWidth:self.separateLineWidth top:NO left:NO bottom:YES right:NO];
+        }
+        if ((indexPath.item+1)%self.customFlowLayout.itemsPerline != 0) {
+            [cell addBorderWithBorderColor:self.separateLineColor borderWidth:self.separateLineWidth top:NO left:NO bottom:NO right:YES];
+        }
+    }
+    else if (self.separateStyle == SeparateStyleNone) {
+        [cell hideAllBorders];
+    }
+    
+    
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
@@ -152,12 +157,26 @@
 - (UIView *)contentView {
     if (!_contentView) {
         _contentView = [[UIView alloc] initWithFrame:CGRectZero];
-        //_contentView.backgroundColor = self.separateLineColor;
     }
     return _contentView;
 }
+
+- (void)setMenuSize:(CGSize)menuSize {
+    if (self.numberOfMenusPerline == 0) {
+        self.customFlowLayout.itemSize = menuSize;
+    }
+}
 - (CGSize)menuSize {
     return self.customFlowLayout.itemSize;
+}
+- (void)setNumberOfMenusPerline:(NSInteger)numberOfMenusPerline {
+    if (numberOfMenusPerline < 0) numberOfMenusPerline = 0;
+    _numberOfMenusPerline = numberOfMenusPerline;
+    self.customFlowLayout.itemsPerline = numberOfMenusPerline;
+    [self.customFlowLayout reloadLayout];
+    if (self.separateStyle != SeparateStyleNone) {
+        [self reloadData];
+    }
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView {
@@ -170,28 +189,32 @@
         [self setNeedsLayout];
     }
 }
-//- (void)setSeparateLineColor:(UIColor *)separateLineColor {
-//    _separateLineColor = separateLineColor;
-//    self.contentView.backgroundColor = separateLineColor;
-//}
-- (void)setNumberOfMenusPerline:(NSInteger)numberOfMenusPerline {
-    if (numberOfMenusPerline <= 0) {
-        return;
-    }
-    _numberOfMenusPerline = numberOfMenusPerline;
-    self.customFlowLayout.itemsPerline = numberOfMenusPerline;
+- (void)setSeparateStyle:(ZSMenuViewSeparateStyle)separateStyle {
+    _separateStyle = separateStyle;
+    [self reloadData];
+}
+- (void)setSeparateLineColor:(UIColor *)separateLineColor {
+    _separateLineColor = separateLineColor;
+    [self reloadData];
+}
+- (void)setSeparateLineWidth:(CGFloat)separateLineWidth {
+    _separateLineWidth = separateLineWidth;
+    [self reloadData];
+}
+
+- (void)setHorizontalSpacing:(CGFloat)horizontalSpacing {
+    _horizontalSpacing = horizontalSpacing;
+    self.customFlowLayout.minimumLineSpacing = horizontalSpacing;
     [self.customFlowLayout reloadLayout];
 }
-//- (void)setHorizontalSpacing:(CGFloat)horizontalSpacing {
-//    _horizontalSpacing = horizontalSpacing;
-//    self.customFlowLayout.minimumLineSpacing = horizontalSpacing;
-//    [self.customFlowLayout reloadLayout];
-//}
-//- (void)setVerticalSpacing:(CGFloat)verticalSpacing {
-//    _verticalSpacing = verticalSpacing;
-//    self.customFlowLayout.minimumInteritemSpacing = verticalSpacing;
-//    [self.customFlowLayout reloadLayout];
-//}
+- (void)setVerticalSpacing:(CGFloat)verticalSpacing {
+    _verticalSpacing = verticalSpacing;
+    self.customFlowLayout.minimumInteritemSpacing = verticalSpacing;
+    [self.customFlowLayout reloadLayout];
+    if (self.separateStyle != SeparateStyleNone) {
+        [self reloadData];
+    }
+}
 - (void)setIsAdjustContentVerticalCenter:(BOOL)isAdjustContentVerticalCenter {
     _isAdjustContentVerticalCenter = isAdjustContentVerticalCenter;
     [self.customFlowLayout reloadLayout];

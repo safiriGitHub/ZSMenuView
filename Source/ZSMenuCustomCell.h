@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+ZSMenuExtension.h"
 
 @interface ZSMenuCustomCell : UICollectionViewCell
 
-@property (nonatomic ,strong) UIView *selectedForegroundView;
+/// 选中菜单时的高亮色
+@property (nonatomic ,strong) UIColor *selectionColor;
 
 @end

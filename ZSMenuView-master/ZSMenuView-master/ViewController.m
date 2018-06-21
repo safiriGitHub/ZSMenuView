@@ -10,9 +10,15 @@
 #import "ZSMenuView.h"
 #import "ZSMenuNormalStyleCell.h"
 
-@interface ViewController ()<ZSMenuViewDataSource,ZSMenuViewDelegate>
+@interface ViewController ()<ZSMenuViewDataSource,ZSMenuViewDelegate ,UITextFieldDelegate>
 
+@property (nonatomic ,assign) NSInteger menuItems;
 @property (nonatomic ,weak) ZSMenuView *menuView;
+
+@property (weak, nonatomic) IBOutlet UITextField *numberOfMenusPerlineTF;
+@property (weak, nonatomic) IBOutlet UITextField *menuSizeWidthTF;
+@property (weak, nonatomic) IBOutlet UITextField *menuSizeHeightTF;
+
 
 @end
 
@@ -24,11 +30,16 @@
     ZSMenuView *menuView = [[ZSMenuView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, 300)];
     menuView.dataSource = self;
     menuView.delegate = self;
-    menuView.numberOfMenusPerline = 5;
+    menuView.numberOfMenusPerline = 0;
     menuView.backgroundColor = [UIColor yellowColor];
-    menuView.isAdjustContentVerticalCenter = YES;
-    menuView.isAdjustContentHorizontalCenter = YES;
+//    menuView.isAdjustContentVerticalCenter = YES;
+//    menuView.isAdjustContentHorizontalCenter = YES;
     menuView.flowDirection = FlowDirectionVertical;
+    
+    menuView.separateStyle = SeparateStyleNormal;
+    menuView.separateLineWidth = 0.5;
+    menuView.separateLineColor = [UIColor blueColor];
+    
     menuView.pagingEnabled = YES;
     [menuView registerClass:[ZSMenuNormalStyleCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:menuView];
@@ -45,29 +56,80 @@
 //        self.menuView.numberOfMenusPerline = 3;
     });
 }
-- (NSInteger)numberOfItemsInMenuView:(ZSMenuView *)menuView {
-    return 10;
+
+- (NSInteger)menuView:(ZSMenuView *)menuView numberOfItemsInSection:(NSInteger)section {
+    return self.menuItems;
 }
 
-- (UICollectionViewCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (ZSMenuCustomCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ZSMenuNormalStyleCell *cell = (ZSMenuNormalStyleCell *)[menuView dequeueReusableCellWithReuseIdentifier:@"cell" atIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor redColor];
-//    UILabel *label = (UILabel *)[cell.contentView viewWithTag:101];
-//    if (!label) {
-//        label = [[UILabel alloc] initWithFrame:cell.bounds];
-//        label.tag = 101;
-//        label.textAlignment = NSTextAlignmentCenter;
-//        [cell.contentView addSubview:label];
-//    }
-//    label.text = [NSString stringWithFormat:@"%zd",indexPath.item];
-    cell.menuImageView.image = [UIImage imageNamed:@"main_menu1"];
-    cell.menuLabel.text = @"title";
+    //normal
+    //    cell.menuImageView.image = [UIImage imageNamed:@"main_menu1"];
+    //    cell.menuLabel.text = @"title";
     
+    //test
+    cell.backgroundColor = [UIColor redColor];
+    UILabel *label = (UILabel *)[cell.contentView viewWithTag:101];
+    if (!label) {
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        label.tag = 101;
+        label.textAlignment = NSTextAlignmentCenter;
+        [cell.contentView addSubview:label];
+    }
+    label.center = cell.contentView.center;
+    label.text = [NSString stringWithFormat:@"%zd",indexPath.item];
+
     return cell;
 }
 
 - (void)menuView:(ZSMenuView *)menuView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"indexpath %zd - %zd",indexPath.section,indexPath.item);
+    NSLog(@"indexpath %ld - %ld",(long)indexPath.section,(long)indexPath.item);
+}
+
+// MARK: settings
+- (IBAction)addItemClick:(id)sender {
+    self.menuItems++;
+    [self.menuView reloadData];
+}
+- (IBAction)reduceItemClick:(id)sender {
+    self.menuItems--;
+    [self.menuView reloadData];
+}
+- (IBAction)verticalSpacingSlideChange:(id)sender {
+    UISlider *slider = (UISlider *)sender;
+    self.menuView.verticalSpacing = slider.value;
+}
+- (IBAction)horizontalSpacingSlideChange:(id)sender {
+    UISlider *slider = (UISlider *)sender;
+    self.menuView.horizontalSpacing = slider.value;
+}
+- (IBAction)SeparateStyleSegmentChange:(id)sender {
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    if (segment.selectedSegmentIndex == 0) {
+        self.menuView.separateStyle = SeparateStyleNormal;
+    }else if (segment.selectedSegmentIndex == 1) {
+        self.menuView.separateStyle = SeparateStyleNone;
+    }
+    
+}
+
+
+- (IBAction)perlineConfirmButtonClick:(id)sender {
+    NSString *numberString = self.numberOfMenusPerlineTF.text;
+    if (numberString.length == 0) {
+        NSLog(@"输入行数");return;
+    }
+    NSInteger line = numberString.integerValue;
+    self.menuView.numberOfMenusPerline = line;
+}
+
+- (IBAction)menuSizeConfirmButtonClick:(id)sender {
+    CGFloat width = self.menuSizeWidthTF.text.floatValue;
+    CGFloat height = self.menuSizeHeightTF.text.floatValue;
+    if (width <=0 || height <= 0) {
+        NSLog(@"menuSize不能为0"); return;
+    }
+    self.menuView.menuSize = CGSizeMake(width, height);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,5 +137,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

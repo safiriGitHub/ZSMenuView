@@ -26,15 +26,14 @@
 }
 
 - (void)setupLayout {
-    //CGFloat side = (self.collectionView.bounds.size.width - self.minimumLineSpacing*(self.itemsPerline-1))/self.itemsPerline;
-    CGFloat side = self.collectionView.bounds.size.width/self.itemsPerline;
-    self.itemSize = CGSizeMake(side, side);
-    //居中调整
-    //self.sectionInset = UIEdgeInsetsMake(<#CGFloat top#>, 0, <#CGFloat bottom#>, 0)
-    
+    if (self.itemsPerline > 0) {
+        CGFloat side = (self.collectionView.bounds.size.width - self.minimumInteritemSpacing*(self.itemsPerline-1))/self.itemsPerline;
+        self.itemSize = CGSizeMake(side, side);
+    }
 }
+
 //- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-//    //解决bug:分隔线宽度会出现不一致
+//    //解决bug:分隔线宽度会出现不一致 -->使用cell添加分隔线，简单方便
 //    NSArray *answer = [super layoutAttributesForElementsInRect:rect];
 //    for(int i = 1; i < [answer count]; ++i) {
 //        //1.竖向间距调整成一样：不成功
@@ -51,14 +50,20 @@
 //    }
 //    return answer;
 //}
+
+
 //MARK: Public func
 - (void)reloadLayout {
     [self invalidateLayout];
 }
-
-- (CGFloat)calculateContentVerticalCenterEdgeForSectionAtIndex:(NSInteger)section {
+- (NSInteger)linesForSection:(NSInteger)section {
     NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
     NSInteger lines = [self calculateLinesWithTotalItems:numberOfItems andPerLineItems:self.itemsPerline];
+    return lines;
+}
+
+- (CGFloat)calculateContentVerticalCenterEdgeForSectionAtIndex:(NSInteger)section {
+    NSInteger lines = [self linesForSection:section];
     CGFloat combinedItemHeight = (lines * self.itemSize.height) + ((lines - 1)*self.minimumLineSpacing);
     CGFloat paddingV = (self.collectionView.frame.size.height - combinedItemHeight)/2;
     paddingV = paddingV>0 ? paddingV:0;

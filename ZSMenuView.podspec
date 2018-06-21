@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "ZSMenuView.podspec"
+  s.name         = "ZSMenuView"
   s.version      = "0.0.1"
-  s.summary      = "菜单控件"
+  s.summary      = "菜单控件：自定义菜单个数、排列样式、菜单样式、分隔线样式"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,10 +25,10 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-  菜单控件： 0.0.1：最简单的样式实现
+  菜单控件： 0.0.1：自定义菜单总数、菜单每行个数、菜单样式、菜单间隔、分隔线样式等功能
                    DESC
 
-  s.homepage     = "https://www.jianshu.com/u/2809c84474f6"
+  s.homepage     = "https://github.com/safiriGitHub/ZSMenuView"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://gitee.com/safiri/ZSMenuView.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/safiriGitHub/ZSMenuView.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

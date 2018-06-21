@@ -10,8 +10,6 @@
 
 @interface ZSMenuNormalStyleCell ()
 
-@property (nonatomic ,weak) UIStackView *stackView;
-
 @end
 
 @implementation ZSMenuNormalStyleCell
@@ -26,26 +24,34 @@
 }
 
 - (void)commonInit {
-    _heightRadio = 0.8;
+    _space = 5;
+    _labelWidthRadio = 1;
     self.contentView.backgroundColor = [UIColor whiteColor];
     
-    UIStackView *stackView = [[UIStackView alloc] init];
-    stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.distribution = UIStackViewDistributionEqualSpacing;
-    stackView.alignment = UIStackViewAlignmentCenter;
-    [stackView addSubview:self.menuImageView];
-    [stackView addSubview:self.menuLabel];
-    [stackView addArrangedSubview:self.menuImageView];
-    [stackView addArrangedSubview:self.menuLabel];
-    [self.contentView addSubview:stackView];
-    self.stackView = stackView;
-    
-    
+    [self.contentView addSubview:self.menuImageView];
+    [self.contentView addSubview:self.menuLabel];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.stackView.frame = CGRectMake(0, self.contentView.bounds.size.height*(1-self.heightRadio)/2, self.contentView.bounds.size.width, self.contentView.bounds.size.height*self.heightRadio);
+    CGFloat width = self.contentView.bounds.size.width;
+    CGFloat height = self.contentView.bounds.size.height;
+    CGFloat imageHeight = self.menuImageView.image.size.height;
+    CGFloat imageWidth = self.menuImageView.image.size.width;
+    if (imageHeight == 0) {
+        imageHeight = 36;
+        imageWidth = 36;
+    }
+    CGFloat labelWidth = width*self.labelWidthRadio;
+    CGFloat labelHeight = 20;
+    CGFloat imageY = (height - imageHeight - self.space - labelHeight)/2;
+    if (imageY < 0) {
+        imageY = 0;
+    }
+    CGFloat labelY = imageY + imageHeight + self.space;
+    
+    self.menuImageView.frame = CGRectMake((width-imageWidth)/2, imageY, imageWidth, imageHeight);
+    self.menuLabel.frame = CGRectMake((width-labelWidth)/2, labelY, labelWidth, labelHeight);
 }
 
 - (UIImageView *)menuImageView {
@@ -59,14 +65,10 @@
         _menuLabel = [[UILabel alloc] init];
         _menuLabel.numberOfLines = 0;
         _menuLabel.font = [UIFont systemFontOfSize:14];
+        _menuLabel.adjustsFontSizeToFitWidth = YES;
+        _menuLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _menuLabel;
 }
 
-- (void)setHeightRadio:(CGFloat)heightRadio {
-    _heightRadio = heightRadio;
-    CGFloat width = self.contentView.bounds.size.width;
-    CGFloat height = self.contentView.bounds.size.height;
-    self.stackView.frame = CGRectMake(0, height*(1-self.heightRadio)/2, width, height*self.heightRadio);
-}
 @end

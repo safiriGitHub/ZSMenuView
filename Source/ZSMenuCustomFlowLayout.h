@@ -12,6 +12,9 @@
 
 @property (nonatomic ,assign) NSInteger itemsPerline;
 
+/// 菜单行数
+- (NSInteger)linesForSection:(NSInteger)section;
+
 /// 刷新布局 equal to [self invalidateLayout]
 - (void)reloadLayout;
 
