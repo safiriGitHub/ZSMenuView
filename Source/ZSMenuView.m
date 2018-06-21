@@ -208,6 +208,9 @@
     [self.customFlowLayout reloadLayout];
 }
 - (void)setVerticalSpacing:(CGFloat)verticalSpacing {
+    if (self.customFlowLayout.itemsPerline > 0) {
+        return;
+    }
     _verticalSpacing = verticalSpacing;
     self.customFlowLayout.minimumInteritemSpacing = verticalSpacing;
     [self.customFlowLayout reloadLayout];

@@ -28,28 +28,38 @@
 - (void)setupLayout {
     if (self.itemsPerline > 0) {
         CGFloat side = (self.collectionView.bounds.size.width - self.minimumInteritemSpacing*(self.itemsPerline-1))/self.itemsPerline;
+        side = floorf(side);
         self.itemSize = CGSizeMake(side, side);
     }
 }
 
-//- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-//    //解决bug:分隔线宽度会出现不一致 -->使用cell添加分隔线，简单方便
-//    NSArray *answer = [super layoutAttributesForElementsInRect:rect];
-//    for(int i = 1; i < [answer count]; ++i) {
-//        //1.竖向间距调整成一样：不成功
-//        UICollectionViewLayoutAttributes *currentLayoutAttributes = answer[i];
-//        UICollectionViewLayoutAttributes *prevLayoutAttributes = answer[i - 1];
-//        NSInteger maximumSpacing = 0.5;
-//        NSInteger origin = CGRectGetMaxX(prevLayoutAttributes.frame);
-//        
-//        CGRect frame = currentLayoutAttributes.frame;
-//        frame.origin.x = origin + maximumSpacing;
-//        currentLayoutAttributes.frame = frame;
-//       
-//        //2.横向间距调整成一样：未完成
-//    }
-//    return answer;
-//}
+- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
+    NSArray *answer = [super layoutAttributesForElementsInRect:rect];
+    
+    //解决bug: 确定每行菜单数目后，计算出菜单size会出现小数，导致菜单出现间隔
+    if (self.itemsPerline > 0) {
+        CGFloat overflowWidth = self.collectionView.bounds.size.width - self.itemSize.width*self.itemsPerline;
+        if (overflowWidth > 0) {
+            for(int i = 1; i < [answer count]; ++i) {
+    
+                UICollectionViewLayoutAttributes *currentLayoutAttributes = answer[i];
+                UICollectionViewLayoutAttributes *prevLayoutAttributes = answer[i - 1];
+                if (prevLayoutAttributes.frame.origin.y == currentLayoutAttributes.frame.origin.y) {//只对同一行操作
+                    
+                    NSInteger origin = CGRectGetMaxX(prevLayoutAttributes.frame);
+                    CGRect frame = currentLayoutAttributes.frame;
+                    frame.origin.x = origin;//消除缝隙
+                    if ((i + 1)%self.itemsPerline == 0) {
+                        frame.size.width += overflowWidth;//每行最后一个菜单增宽
+                    }
+                    currentLayoutAttributes.frame = frame;
+                }
+            }
+        }
+    }
+    
+    return answer;
+}
 
 
 //MARK: Public func

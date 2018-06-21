@@ -36,7 +36,7 @@
 //    menuView.isAdjustContentHorizontalCenter = YES;
     menuView.flowDirection = FlowDirectionVertical;
     
-    menuView.separateStyle = SeparateStyleNormal;
+    menuView.separateStyle = SeparateStyleNone;
     menuView.separateLineWidth = 0.5;
     menuView.separateLineColor = [UIColor blueColor];
     
@@ -71,13 +71,13 @@
     cell.backgroundColor = [UIColor redColor];
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:101];
     if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 15)];
         label.tag = 101;
         label.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:label];
     }
     label.center = cell.contentView.center;
-    label.text = [NSString stringWithFormat:@"%zd",indexPath.item];
+    label.text = [NSString stringWithFormat:@"%ld",(long)indexPath.item];
 
     return cell;
 }
