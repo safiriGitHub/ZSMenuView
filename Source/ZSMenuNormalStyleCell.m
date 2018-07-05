@@ -25,7 +25,7 @@
 
 - (void)commonInit {
     _space = 5;
-    _labelWidthRadio = 1;
+    _labelWidthRadio = 0;
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self.contentView addSubview:self.menuImageView];
@@ -42,8 +42,13 @@
         imageHeight = 36;
         imageWidth = 36;
     }
-    CGFloat labelWidth = width*self.labelWidthRadio;
-    CGFloat labelHeight = 20;
+    
+    
+    CGFloat labelWidth = width * self.labelWidthRadio;
+    if (self.labelWidthRadio == 0) {
+        labelWidth = imageWidth;
+    }
+    CGFloat labelHeight = (height - imageHeight - self.space);//总高度-图片高度-间隔
     CGFloat imageY = (height - imageHeight - self.space - labelHeight)/2;
     if (imageY < 0) {
         imageY = 0;
@@ -65,7 +70,6 @@
         _menuLabel = [[UILabel alloc] init];
         _menuLabel.numberOfLines = 0;
         _menuLabel.font = [UIFont systemFontOfSize:14];
-        _menuLabel.adjustsFontSizeToFitWidth = YES;
         _menuLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _menuLabel;

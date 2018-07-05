@@ -10,15 +10,6 @@
 
 @implementation ZSMenuCustomFlowLayout
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _itemsPerline = 1;
-    }
-    return self;
-}
-
 //MARK: override
 - (void)prepareLayout {
     [super prepareLayout];
