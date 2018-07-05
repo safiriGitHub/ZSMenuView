@@ -26,6 +26,7 @@
 - (void)commonInit {
     _space = 5;
     _labelWidthRadio = 0;
+    _menuImageSize = CGSizeZero;
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self.contentView addSubview:self.menuImageView];
@@ -36,11 +37,14 @@
     [super layoutSubviews];
     CGFloat width = self.contentView.bounds.size.width;
     CGFloat height = self.contentView.bounds.size.height;
-    CGFloat imageHeight = self.menuImageView.image.size.height;
-    CGFloat imageWidth = self.menuImageView.image.size.width;
-    if (imageHeight == 0) {
-        imageHeight = 36;
-        imageWidth = 36;
+    CGFloat imageHeight = width;
+    CGFloat imageWidth = height;
+    if (CGSizeEqualToSize(self.menuImageSize, CGSizeZero)) {
+        imageHeight = self.menuImageView.image.size.height;
+        imageWidth = self.menuImageView.image.size.width;
+    }else {
+        imageHeight = self.menuImageSize.height;
+        imageWidth = self.menuImageSize.width;
     }
     
     

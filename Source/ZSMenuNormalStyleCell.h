@@ -12,6 +12,8 @@
 
 /// 菜单图片
 @property (nonatomic ,strong) UIImageView *menuImageView;
+/// 菜单图片大小，默认为Zero，这时大小由设置的图片确定。
+@property (nonatomic ,assign) CGSize menuImageSize;
 
 /// 菜单标题, 很多属性直接自定义
 @property (nonatomic ,strong) UILabel *menuLabel;
