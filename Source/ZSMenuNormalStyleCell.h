@@ -10,8 +10,12 @@
 
 @interface ZSMenuNormalStyleCell : ZSMenuCustomCell
 
+/// 菜单内容edge
+@property (nonatomic ,assign) UIEdgeInsets contentEdge;
+
 /// 菜单图片
 @property (nonatomic ,strong) UIImageView *menuImageView;
+
 /// 菜单图片大小，默认为Zero，这时大小由设置的图片确定。
 @property (nonatomic ,assign) CGSize menuImageSize;
 

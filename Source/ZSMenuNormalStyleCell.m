@@ -37,6 +37,10 @@
     [super layoutSubviews];
     CGFloat width = self.contentView.bounds.size.width;
     CGFloat height = self.contentView.bounds.size.height;
+    CGFloat edgeTop = self.contentEdge.top;
+    CGFloat edgeBottom = self.contentEdge.bottom;
+    CGFloat edgeLeft = self.contentEdge.left;
+    CGFloat edgeRight = self.contentEdge.right;
     CGFloat imageHeight = width;
     CGFloat imageWidth = height;
     if (CGSizeEqualToSize(self.menuImageSize, CGSizeZero)) {
@@ -48,18 +52,18 @@
     }
     
     
-    CGFloat labelWidth = width * self.labelWidthRadio;
+    CGFloat labelWidth = (width-edgeLeft-edgeRight) * self.labelWidthRadio;
     if (self.labelWidthRadio == 0) {
         labelWidth = imageWidth;
     }
-    CGFloat labelHeight = (height - imageHeight - self.space);//总高度-图片高度-间隔
-    CGFloat imageY = (height - imageHeight - self.space - labelHeight)/2;
+    CGFloat labelHeight = (height - edgeTop - edgeBottom - imageHeight - self.space);//总高度-edgeTop-edgeBottom-图片高度-间隔
+    CGFloat imageY = edgeTop;
     if (imageY < 0) {
         imageY = 0;
     }
     CGFloat labelY = imageY + imageHeight + self.space;
     
-    self.menuImageView.frame = CGRectMake((width-imageWidth)/2, imageY, imageWidth, imageHeight);
+    self.menuImageView.frame = CGRectMake((width-imageWidth-edgeLeft-edgeRight)/2, imageY, imageWidth, imageHeight);
     self.menuLabel.frame = CGRectMake((width-labelWidth)/2, labelY, labelWidth, labelHeight);
 }
 
