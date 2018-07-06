@@ -132,7 +132,8 @@
     CGFloat paddingV = 0;
     if (self.isAdjustContentVerticalCenter) {
         paddingV = [self.customFlowLayout calculateContentVerticalCenterEdgeForSectionAtIndex:section];
-    }else if (self.isAdjustContentHorizontalCenter) {
+    }
+    if (self.isAdjustContentHorizontalCenter) {
         paddingH = [self.customFlowLayout calculateContentHorizontalCenterEdgeForSectionAtIndex:section];
     }
     return UIEdgeInsetsMake(paddingV, paddingH,paddingV, paddingH);
@@ -144,8 +145,6 @@
         _customFlowLayout = [[ZSMenuCustomFlowLayout alloc] init];
         _customFlowLayout.minimumLineSpacing = 0;
         _customFlowLayout.minimumInteritemSpacing = 0;
-        //_customFlowLayout.itemSize = self.itemSize;
-        //_customFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
     return _customFlowLayout;
 }
@@ -241,6 +240,10 @@
     [self.customFlowLayout reloadLayout];
 }
 // MARK: set CollectionView
+- (void)setBounces:(BOOL)bounces {
+    _bounces = bounces;
+    self.collectionView.bounces = bounces;
+}
 - (void)setAlwaysBounceVertical:(BOOL)alwaysBounceVertical {
     _alwaysBounceVertical = alwaysBounceVertical;
     self.collectionView.alwaysBounceVertical = alwaysBounceVertical;
