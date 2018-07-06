@@ -11,6 +11,7 @@
 		0381400220D0F6DD0085EEBF /* ZSMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03813FFE20D0F6DD0085EEBF /* ZSMenuView.m */; };
 		0381400320D0F6DD0085EEBF /* ZSMenuCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03813FFF20D0F6DD0085EEBF /* ZSMenuCustomCell.m */; };
 		0381400420D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0381400020D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m */; };
+		0382D1CB20EF6B0100042244 /* ExampleVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382D1CA20EF6B0100042244 /* ExampleVC2.m */; };
 		0392E44620EDC5E600B9631D /* ExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0392E44520EDC5E600B9631D /* ExampleVC.m */; };
 		0392E44920EDC65700B9631D /* MainTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0392E44820EDC65700B9631D /* MainTableVC.m */; };
 		03A8C9B620DA40C5003547C5 /* UIView+ZSMenuExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A8C9B520DA40C5003547C5 /* UIView+ZSMenuExtension.m */; };
@@ -32,6 +33,8 @@
 		03813FFE20D0F6DD0085EEBF /* ZSMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuView.m; sourceTree = "<group>"; };
 		03813FFF20D0F6DD0085EEBF /* ZSMenuCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuCustomCell.m; sourceTree = "<group>"; };
 		0381400020D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuNormalStyleCell.m; sourceTree = "<group>"; };
+		0382D1C920EF6B0100042244 /* ExampleVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleVC2.h; sourceTree = "<group>"; };
+		0382D1CA20EF6B0100042244 /* ExampleVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleVC2.m; sourceTree = "<group>"; };
 		0392E44420EDC5E600B9631D /* ExampleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleVC.h; sourceTree = "<group>"; };
 		0392E44520EDC5E600B9631D /* ExampleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleVC.m; sourceTree = "<group>"; };
 		0392E44720EDC65700B9631D /* MainTableVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTableVC.h; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 				03AAF32B20CE6238006B0DE7 /* ViewController.m */,
 				0392E44420EDC5E600B9631D /* ExampleVC.h */,
 				0392E44520EDC5E600B9631D /* ExampleVC.m */,
+				0382D1C920EF6B0100042244 /* ExampleVC2.h */,
+				0382D1CA20EF6B0100042244 /* ExampleVC2.m */,
 				03AAF32D20CE6238006B0DE7 /* Main.storyboard */,
 				03AAF33020CE623A006B0DE7 /* Assets.xcassets */,
 				03AAF33220CE623A006B0DE7 /* LaunchScreen.storyboard */,
@@ -192,6 +197,7 @@
 				0392E44920EDC65700B9631D /* MainTableVC.m in Sources */,
 				03AAF32C20CE6238006B0DE7 /* ViewController.m in Sources */,
 				0381400420D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m in Sources */,
+				0382D1CB20EF6B0100042244 /* ExampleVC2.m in Sources */,
 				03AAF33720CE623A006B0DE7 /* main.m in Sources */,
 				03A8C9B620DA40C5003547C5 /* UIView+ZSMenuExtension.m in Sources */,
 				0381400120D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.m in Sources */,

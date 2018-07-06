@@ -9,6 +9,7 @@
 #import "MainTableVC.h"
 #import "ViewController.h"
 #import "ExampleVC.h"
+#import "ExampleVC2.h"
 
 @interface MainTableVC ()
 
@@ -30,7 +31,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 
@@ -50,6 +51,9 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 1) {
         ExampleVC *vc = [[ExampleVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (indexPath.row == 2) {
+        ExampleVC2 *vc = [[ExampleVC2 alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
