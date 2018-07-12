@@ -35,7 +35,9 @@
     
                 UICollectionViewLayoutAttributes *currentLayoutAttributes = answer[i];
                 UICollectionViewLayoutAttributes *prevLayoutAttributes = answer[i - 1];
-                if (prevLayoutAttributes.frame.origin.y == currentLayoutAttributes.frame.origin.y) {//只对同一行操作
+                //NSLog(@"%f -- %f",prevLayoutAttributes.frame.origin.y, currentLayoutAttributes.frame.origin.y);
+                if (prevLayoutAttributes.frame.origin.y == currentLayoutAttributes.frame.origin.y) {
+                    //只对同一行操作
                     
                     NSInteger origin = CGRectGetMaxX(prevLayoutAttributes.frame);
                     CGRect frame = currentLayoutAttributes.frame;
@@ -79,6 +81,9 @@
 }
 - (NSInteger)calculateLinesWithTotalItems:(NSInteger)totalItems andPerLineItems:(NSInteger)perLineItems {
     CGFloat lines = 0;
+    if (perLineItems == 0) {
+        perLineItems = 1;
+    }
     NSInteger a = totalItems % perLineItems;
     NSInteger b = totalItems / perLineItems;
     //总数 % 行的个数 = 余数  是否等于0判断是否换段
