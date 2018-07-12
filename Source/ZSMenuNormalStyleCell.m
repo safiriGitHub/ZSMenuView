@@ -10,6 +10,9 @@
 
 @interface ZSMenuNormalStyleCell ()
 
+@property (nonatomic ,strong) UIView *menuContainerView;
+
+
 @end
 
 @implementation ZSMenuNormalStyleCell
@@ -27,20 +30,23 @@
     _space = 5;
     _labelWidthRadio = 0;
     _menuImageSize = CGSizeZero;
-    self.contentView.backgroundColor = [UIColor whiteColor];
     
-    [self.contentView addSubview:self.menuImageView];
-    [self.contentView addSubview:self.menuLabel];
+    [self.contentView addSubview:self.menuContainerView];
+    [self.menuContainerView addSubview:self.menuImageView];
+    [self.menuContainerView addSubview:self.menuLabel];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     CGFloat width = self.contentView.bounds.size.width;
     CGFloat height = self.contentView.bounds.size.height;
     CGFloat edgeTop = self.contentEdge.top;
     CGFloat edgeBottom = self.contentEdge.bottom;
     CGFloat edgeLeft = self.contentEdge.left;
     CGFloat edgeRight = self.contentEdge.right;
+    
+    //menuImageView
     CGFloat imageHeight = width;
     CGFloat imageWidth = height;
     if (CGSizeEqualToSize(self.menuImageSize, CGSizeZero)) {
@@ -51,20 +57,31 @@
         imageWidth = self.menuImageSize.width;
     }
     
-    
+    //menuLabel
     CGFloat labelWidth = (width-edgeLeft-edgeRight) * self.labelWidthRadio;
     if (self.labelWidthRadio == 0) {
         labelWidth = imageWidth;
     }
-    CGFloat labelHeight = (height - edgeTop - edgeBottom - imageHeight - self.space);//总高度-edgeTop-edgeBottom-图片高度-间隔
-    CGFloat imageY = edgeTop;
-    if (imageY < 0) {
-        imageY = 0;
-    }
-    CGFloat labelY = imageY + imageHeight + self.space;
+    CGRect labelDrawRect = [self.menuLabel.text boundingRectWithSize:CGSizeMake(labelWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:nil context:nil];
+    CGFloat labelHeight = labelDrawRect.size.height;
     
-    self.menuImageView.frame = CGRectMake((width-imageWidth-edgeLeft-edgeRight)/2, imageY, imageWidth, imageHeight);
-    self.menuLabel.frame = CGRectMake((width-labelWidth)/2, labelY, labelWidth, labelHeight);
+    //menuContainerView
+    CGFloat containerWidth = labelWidth > imageWidth ? labelWidth : imageWidth;
+    CGFloat containerHeight = imageHeight + self.space + labelHeight;
+    CGFloat containerX = (width - containerWidth - edgeLeft - edgeRight)/2;
+    CGFloat containerY = (height - containerHeight - edgeTop - edgeBottom)/2;
+    
+    //setFrame
+    self.menuContainerView.frame = CGRectMake(containerX, containerY, containerWidth, containerHeight);
+    self.menuImageView.frame = CGRectMake((containerWidth - imageWidth)/2, 0, imageWidth, imageHeight);
+    self.menuLabel.frame = CGRectMake((containerWidth - labelWidth)/2, imageHeight + self.space, labelWidth, labelHeight);
+}
+
+- (UIView *)menuContainerView {
+    if (!_menuContainerView) {
+        _menuContainerView = [[UIView alloc] init];
+    }
+    return _menuContainerView;
 }
 
 - (UIImageView *)menuImageView {
