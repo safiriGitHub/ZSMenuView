@@ -93,7 +93,7 @@ pod  'ZSMenuView'
 
 ![example](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example2.gif)
 ![example](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example3.gif)
-![更改菜单总数及每行个数](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example3.gif)
+![更改菜单总数及每行个数](https://github.com/safiriGitHub/ZSMenuView/blob/master/gif/example4.gif)
 
 #### 参与贡献
 
