@@ -100,20 +100,24 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ZSMenuCustomCell *cell = [self.dataSource menuView:self cellForItemAtIndexPath:indexPath];
-    if (self.separateStyle == SeparateStyleNormal && self.customFlowLayout.itemsPerline > 0) {
+    if (self.separateStyle == SeparateStyleNormal) {
+        NSInteger itemsPerline = self.customFlowLayout.itemsPerline;
+        if (itemsPerline <= 0) {
+            itemsPerline = floorf(self.frame.size.width/self.menuSize.width);
+        }
+        
         //normal style
         [cell hideAllBorders];
-        if (indexPath.item/self.customFlowLayout.itemsPerline < [self.customFlowLayout linesForSection:indexPath.section] - 1) {
+        if (indexPath.item/itemsPerline < [self.customFlowLayout linesForSection:indexPath.section] - 1) {
             [cell addBorderWithBorderColor:self.separateLineColor borderWidth:self.separateLineWidth top:NO left:NO bottom:YES right:NO];
         }
-        if ((indexPath.item+1)%self.customFlowLayout.itemsPerline != 0) {
+        if ((indexPath.item+1)%itemsPerline != 0) {
             [cell addBorderWithBorderColor:self.separateLineColor borderWidth:self.separateLineWidth top:NO left:NO bottom:NO right:YES];
         }
     }
     else if (self.separateStyle == SeparateStyleNone) {
         [cell hideAllBorders];
     }
-    
     
     return cell;
 }
