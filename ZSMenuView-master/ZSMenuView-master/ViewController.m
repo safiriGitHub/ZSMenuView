@@ -86,6 +86,21 @@
     NSLog(@"indexpath %ld - %ld",(long)indexPath.section,(long)indexPath.item);
 }
 
+- (BOOL)menuView:(ZSMenuView *)menuView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+- (UIColor *)menuView:(ZSMenuView *)menuView highlightColorAtIndexPath:(NSIndexPath *)indexPath {
+    return [UIColor lightGrayColor];
+}
+- (UIColor *)menuView:(ZSMenuView *)menuView unhighlightColorAtIndexPath:(NSIndexPath *)indexPath {
+    return [UIColor whiteColor];
+}
+- (UIColor *)menuView:(ZSMenuView *)menuView selectColorAtIndexPath:(NSIndexPath *)indexPath {
+    return [UIColor blueColor];
+}
+- (UIColor *)menuView:(ZSMenuView *)menuView deselectColorAtIndexPath:(NSIndexPath *)indexPath {
+    return [UIColor brownColor];
+}
 // MARK: settings
 - (IBAction)addItemClick:(id)sender {
     self.menuItems++;

@@ -34,7 +34,31 @@ typedef NS_ENUM(NSUInteger, ZSMenuViewSeparateStyle) {
 
 @protocol ZSMenuViewDelegate <NSObject>
 
+// Methods for notification of selection/deselection and highlight/unhighlight events.
+// The sequence of calls leading to selection from a user touch is:
+//
+// (when the touch begins)
+// 1. -collectionView:shouldHighlightItemAtIndexPath:
+// 2. -collectionView:didHighlightItemAtIndexPath:
+//
+// (when the touch lifts)
+// 3. -collectionView:shouldSelectItemAtIndexPath: or -collectionView:shouldDeselectItemAtIndexPath:
+// 4. -collectionView:didSelectItemAtIndexPath: or -collectionView:didDeselectItemAtIndexPath:
+// 5. -collectionView:didUnhighlightItemAtIndexPath:
+- (BOOL)menuView:(ZSMenuView *)menuView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)menuView:(ZSMenuView *)menuView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)menuView:(ZSMenuView *)menuView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)menuView:(ZSMenuView *)menuView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)menuView:(ZSMenuView *)menuView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath; // called when the user taps on an already-selected item in multi-select mode
 - (void)menuView:(ZSMenuView *)menuView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)menuView:(ZSMenuView *)menuView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+// MARK: - set cell
+//设置点击高亮和非高亮颜色
+- (UIColor *)menuView:(ZSMenuView *)menuView highlightColorAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)menuView:(ZSMenuView *)menuView unhighlightColorAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)menuView:(ZSMenuView *)menuView selectColorAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)menuView:(ZSMenuView *)menuView deselectColorAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

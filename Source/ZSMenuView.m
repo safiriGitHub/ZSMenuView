@@ -121,14 +121,71 @@
     
     return cell;
 }
+
+
+
+
 #pragma mark - UICollectionViewDelegate
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:shouldHighlightItemAtIndexPath:)]) {
+        return [self.delegate menuView:self shouldHighlightItemAtIndexPath:indexPath];
+    }
+    return NO;
+}
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:didHighlightItemAtIndexPath:)]) {
+        [self.delegate menuView:self didHighlightItemAtIndexPath:indexPath];
+    }
+    if ([self.delegate respondsToSelector:@selector(menuView:highlightColorAtIndexPath:)]) {
+        UIColor *color = [self.delegate menuView:self highlightColorAtIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        [cell setBackgroundColor:color];
+    }
+}
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:didUnhighlightItemAtIndexPath:)]) {
+        [self.delegate menuView:self didUnhighlightItemAtIndexPath:indexPath];
+    }
+    if ([self.delegate respondsToSelector:@selector(menuView:unhighlightColorAtIndexPath:)]) {
+        UIColor *color = [self.delegate menuView:self unhighlightColorAtIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        [cell setBackgroundColor:color];
+    }
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:shouldSelectItemAtIndexPath:)]) {
+        return [self.delegate menuView:self shouldSelectItemAtIndexPath:indexPath];
+    }
+    return YES;
+}
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:shouldDeselectItemAtIndexPath:)]) {
+        return [self.delegate menuView:self shouldDeselectItemAtIndexPath:indexPath];
+    }
+    return YES;
+}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(menuView:didSelectItemAtIndexPath:)]) {
         [self.delegate menuView:self didSelectItemAtIndexPath:indexPath];
     }
+    if ([self.delegate respondsToSelector:@selector(menuView:selectColorAtIndexPath:)]) {
+        UIColor *color = [self.delegate menuView:self selectColorAtIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        [cell setBackgroundColor:color];
+    }
 }
-
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(menuView:didDeselectItemAtIndexPath:)]) {
+        [self.delegate menuView:self didDeselectItemAtIndexPath:indexPath];
+    }
+    if ([self.delegate respondsToSelector:@selector(menuView:deselectColorAtIndexPath:)]) {
+        UIColor *color = [self.delegate menuView:self deselectColorAtIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        [cell setBackgroundColor:color];
+    }
+}
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
