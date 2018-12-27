@@ -9,7 +9,7 @@
 #ifndef ZSMenuViewConfig_h
 #define ZSMenuViewConfig_h
 
-@class ZSMenuView,ZSMenuCustomCell;
+@class ZSMenuView;
 
 typedef NS_ENUM(NSUInteger, ZSMenuViewFlowDirection) {
     FlowDirectionVertical,
@@ -28,12 +28,13 @@ typedef NS_ENUM(NSUInteger, ZSMenuViewSeparateStyle) {
 - (NSInteger)menuView:(ZSMenuView *)menuView numberOfItemsInSection:(NSInteger)section;
 
 /// 根据指定index传入相应的自定义cell，即自定制菜单View
-- (ZSMenuCustomCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)menuView:(ZSMenuView *)menuView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @protocol ZSMenuViewDelegate <NSObject>
 
+@optional;
 // Methods for notification of selection/deselection and highlight/unhighlight events.
 // The sequence of calls leading to selection from a user touch is:
 //

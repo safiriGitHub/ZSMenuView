@@ -6,9 +6,9 @@
 //  Copyright © 2018年 safiri. All rights reserved.
 //
 
-#import "ZSMenuCustomCell.h"
+#import <UIKit/UIKit.h>
 
-@interface ZSMenuNormalStyleCell : ZSMenuCustomCell
+@interface ZSMenuNormalStyleCell : UICollectionViewCell
 
 /// 菜单内容edge
 @property (nonatomic ,assign) UIEdgeInsets contentEdge;

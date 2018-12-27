@@ -8,7 +8,7 @@
 
 #import "ZSMenuView.h"
 #import "ZSMenuCustomFlowLayout.h"
-#import "ZSMenuCustomCell.h"
+#import "UIView+ZSMenuExtension.h"
 
 @interface ZSMenuView ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
@@ -99,7 +99,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZSMenuCustomCell *cell = [self.dataSource menuView:self cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell *cell = [self.dataSource menuView:self cellForItemAtIndexPath:indexPath];
     if (self.separateStyle == SeparateStyleNormal) {
         NSInteger itemsPerline = self.customFlowLayout.itemsPerline;
         if (itemsPerline <= 0) {
@@ -131,7 +131,7 @@
     if ([self.delegate respondsToSelector:@selector(menuView:shouldHighlightItemAtIndexPath:)]) {
         return [self.delegate menuView:self shouldHighlightItemAtIndexPath:indexPath];
     }
-    return NO;
+    return YES;
 }
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(menuView:didHighlightItemAtIndexPath:)]) {

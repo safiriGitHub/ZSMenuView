@@ -5,7 +5,10 @@
 菜单控件：
 
 0.0.1：自定义菜单总数、菜单每行个数、菜单样式、菜单间隔、分隔线样式等功能
+
 0.0.9: 增加Highlight、Select相关代理方法，高亮颜色和选择颜色代理方法
+
+0.1.0: 解决一点bug；删除 `ZSMenuCustomCell`类，自定义cell只需要继承 `UICollectionViewCell`
 
 #### 软件架构
 

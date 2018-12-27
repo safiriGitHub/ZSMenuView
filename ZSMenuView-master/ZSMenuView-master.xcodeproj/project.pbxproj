@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0381400120D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 03813FF920D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.m */; };
 		0381400220D0F6DD0085EEBF /* ZSMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03813FFE20D0F6DD0085EEBF /* ZSMenuView.m */; };
-		0381400320D0F6DD0085EEBF /* ZSMenuCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03813FFF20D0F6DD0085EEBF /* ZSMenuCustomCell.m */; };
 		0381400420D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0381400020D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m */; };
 		0382D1CB20EF6B0100042244 /* ExampleVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382D1CA20EF6B0100042244 /* ExampleVC2.m */; };
 		0392E44620EDC5E600B9631D /* ExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0392E44520EDC5E600B9631D /* ExampleVC.m */; };
@@ -27,11 +26,9 @@
 		03813FF820D0F6DD0085EEBF /* ZSMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSMenuView.h; sourceTree = "<group>"; };
 		03813FF920D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuCustomFlowLayout.m; sourceTree = "<group>"; };
 		03813FFA20D0F6DD0085EEBF /* ZSMenuViewConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSMenuViewConfig.h; sourceTree = "<group>"; };
-		03813FFB20D0F6DD0085EEBF /* ZSMenuCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSMenuCustomCell.h; sourceTree = "<group>"; };
 		03813FFC20D0F6DD0085EEBF /* ZSMenuNormalStyleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSMenuNormalStyleCell.h; sourceTree = "<group>"; };
 		03813FFD20D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSMenuCustomFlowLayout.h; sourceTree = "<group>"; };
 		03813FFE20D0F6DD0085EEBF /* ZSMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuView.m; sourceTree = "<group>"; };
-		03813FFF20D0F6DD0085EEBF /* ZSMenuCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuCustomCell.m; sourceTree = "<group>"; };
 		0381400020D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSMenuNormalStyleCell.m; sourceTree = "<group>"; };
 		0382D1C920EF6B0100042244 /* ExampleVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleVC2.h; sourceTree = "<group>"; };
 		0382D1CA20EF6B0100042244 /* ExampleVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleVC2.m; sourceTree = "<group>"; };
@@ -69,8 +66,6 @@
 			children = (
 				03A8C9B420DA40C5003547C5 /* UIView+ZSMenuExtension.h */,
 				03A8C9B520DA40C5003547C5 /* UIView+ZSMenuExtension.m */,
-				03813FFB20D0F6DD0085EEBF /* ZSMenuCustomCell.h */,
-				03813FFF20D0F6DD0085EEBF /* ZSMenuCustomCell.m */,
 				03813FFC20D0F6DD0085EEBF /* ZSMenuNormalStyleCell.h */,
 				0381400020D0F6DD0085EEBF /* ZSMenuNormalStyleCell.m */,
 				03813FFD20D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.h */,
@@ -201,7 +196,6 @@
 				03AAF33720CE623A006B0DE7 /* main.m in Sources */,
 				03A8C9B620DA40C5003547C5 /* UIView+ZSMenuExtension.m in Sources */,
 				0381400120D0F6DD0085EEBF /* ZSMenuCustomFlowLayout.m in Sources */,
-				0381400320D0F6DD0085EEBF /* ZSMenuCustomCell.m in Sources */,
 				03AAF32920CE6238006B0DE7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
