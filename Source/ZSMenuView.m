@@ -15,7 +15,7 @@
 @property (nonatomic ,assign ,readwrite) NSInteger numberOfMenus;
 
 @property (nonatomic ,strong) ZSMenuCustomFlowLayout *customFlowLayout;
-@property (nonatomic ,strong) UICollectionView *collectionView;
+@property (nonatomic ,strong, readwrite) UICollectionView *collectionView;
 @property (nonatomic ,strong) UIView *contentView;
 @end
 

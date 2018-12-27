@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ZSMenuView"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "菜单控件：自定义菜单个数、排列样式、菜单样式、分隔线样式"
 
   # This description is used to generate tags and improve search results.

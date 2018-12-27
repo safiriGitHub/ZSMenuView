@@ -37,6 +37,8 @@
 @property (nonatomic ,assign) BOOL isAdjustContentVerticalCenter;
 
 // MARK: - set CollectionView
+@property (nonatomic ,strong, readonly) UICollectionView *collectionView;
+
 @property (nonatomic ,assign) BOOL bounces;//Default:YES
 @property (nonatomic ,assign) BOOL alwaysBounceHorizontal;//Default:No
 @property (nonatomic ,assign) BOOL alwaysBounceVertical;//Default:No

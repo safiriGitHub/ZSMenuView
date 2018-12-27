@@ -10,6 +10,8 @@
 
 0.1.0: 解决一点bug；删除 `ZSMenuCustomCell`类，自定义cell只需要继承 `UICollectionViewCell`
 
+0.1.1: 解决一点bug
+
 #### 软件架构
 
 基于UICollectionView实现
